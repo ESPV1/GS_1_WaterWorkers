@@ -72,7 +72,7 @@ Link para o video sobre o projeto: [clique aqui]()
       </ul>
     </td>
   </tr>
-    <tr>
+</table>
 
 ## 📓 Notas:
 Projeto: WaterWorkers
