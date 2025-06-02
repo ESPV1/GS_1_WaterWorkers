@@ -7,7 +7,7 @@ As enchentes no Brasil não são fenômenos inesperados, mas consequências de f
 
 
 ## 💡 Solução
-Para que possamos evitar grandes alagamentos e com isso evitar repercuções catastroficas precisamos ter mais controle da qualidade dos sistemas de escoamento e sempre buscar parametrizar regioes que precisam de uam infraestrutura mais adequada devido nao só a quantidade de chuva mas o relevo que ela se encontra (regioes com relevo de depressao tem um maior indice de alagamento em casos de chuva). Para que possamos resolver este problema pensamos em um sistema que usara duas frentes. A primeira parte cuida em alertar pedestres e motoristas que estao passsando por aquela regiao e a segunda parte da solução pretende enviar a localização e o estado funcional do bueiro para a prefeitura, tendo assim um total controle de quais politicas publicas eles devem adotar.
+Para que possamos evitar grandes alagamentos e com isso evitar repercuções catastroficas precisamos ter mais controle da qualidade dos sistemas de escoamento e sempre buscar parametrizar regioes que precisam de uma infraestrutura mais adequada devido nao só a quantidade de chuva mas o relevo que ela se encontra (regioes com relevo de depressao tem um maior indice de alagamento em casos de chuva). Para que possamos resolver este problema pensamos em um sistema que usara duas frentes. A primeira parte cuida em alertar pedestres e motoristas que estao passsando por aquela regiao e a segunda parte da solução pretende enviar a localização e o estado funcional do bueiro para a prefeitura, tendo assim um total controle de quais politicas publicas eles devem adotar.
 
 A mitigação de alagamentos em áreas urbanas exige um controle rigoroso da qualidade dos sistemas de drenagem e a identificação precisa das regiões que demandam intervenções estruturais. Essa análise deve levar em consideração não apenas o volume pluviométrico, mas também as características topográficas locais, uma vez que áreas situadas em regiões de depressão apresentam maior propensão a inundações.
 Diante desse cenário, propomos a implementação de um sistema composto por duas frentes de atuação complementares:
@@ -20,21 +20,39 @@ Diante desse cenário, propomos a implementação de um sistema composto por dua
 
 
 ## 🖲️ Requisitos Funcionais
-
+1. Será feita uma leitura da distância entre o topo do poste e o chão, utilizando um sensor ultrassônico, para calcular o nível de água na rua. 
+2. Será feita uma leitura da base do poste até a profundidade do bueiro, também usando um sensor ultrassônico, para calcular o volume de água acumulada no bueiro. 
+3. As leituras são feitas a cada 1 segundo e, após 5 leituras, é calculada a média para definir o nível de água tanto no bueiro quanto na sarjeta 
+4. Caso o volume de água no bueiro esteja entre 0 e 30 cm, o LED verde deve acender, indicando situação normal. 
+5. Caso o volume de água na sarjeta esteja entre 0 e 2 cm, o monitor deve imprimir —> Fluxo de água: Inexistente 
+6. Caso o volume de água no bueiro esteja entre 30 e 60 cm, o LED amarelo deve permanecer aceso, indicando um alerta. 
+7. Caso o volume de água na sarjeta esteja entre 2 e 6 cm, o Serial deve imprimir —> Fluxo de água: Baixo 
+8. Caso o volume de água na sarjeta esteja entre 7 e 10 cm, o Serial deve imprimir —> Fluxo de água: Médio 
+9. Caso o volume de água no bueiro ultrapasse 60 cm, o LED vermelho deve acender, indicando perigo. 
+10. Caso o volume de água na sarjeta ultrapasse 10 cm, o Serial deve imprimir: Fluxo de água: Elevado 
+11. *Como função futura todos os status impressos no Serial deve ser enviado a prefeitura para monitoramento e controle desses dados*
 
 ## 🧭 Material
 - 01 Arduino UNO = Para controlar o sistema
 - 01 Breadboard = para montagem do circuito
 - Cabos Jumper = Para realizar as conexões na breadboard
-- 01 Resistore = LED 
-- 01 LED Vermelho 🔴 = Para indicar PROBLEMA
+- 03 Resistores = 220 Ohms para os Leds
+- 01 LED Verde 🟢 = Indicar que o status to bueiro está dentro dos parametros
+- 01 LED Amarelo 🟡 = Indicar que o status do bueiro está fora dos parametros
+- 01 LED Vermelho 🔴 = Indicar que o bueiro esta a ponto de alagar
+- 02 Sensores HC-SR04 = Medir as distancias do poste ate o bueiro e do poste ate a sarjeta
+
 
 ## 🔗Como acessar o projeto
-Para acessar o diagrama do projeto [clique aqui]()
+Para acessar o diagrama do projeto [clique aqui](https://wokwi.com/projects/432402831622526977)
 
 Link para o video sobre o projeto: [clique aqui]()
 
 ## 🧰 Tecnologias utilizadas
+Linguagem de programção: C
+Microcontrolador: Arduino R3 UNO
+Prototipagem: Wokwi
+Repositorio Remoto: Github
 
 
 ## 🧑‍💻 Equipe
@@ -46,7 +64,8 @@ Link para o video sobre o projeto: [clique aqui]()
     </td>
     <td>
       <ul>
-        <li></li>
+        <li>Montagem da protoboard</li>
+        <li>Declaração dos sensores e variaveis</li>
       </ul>
     </td>
   </tr>
@@ -56,7 +75,7 @@ Link para o video sobre o projeto: [clique aqui]()
     </td>
     <td>
       <ul>
-        <li>Requisitos funcionais para Luminosidade, Display e Led</li>
+        <li>Setup da leitura dos Sensores</li>
       </ul>
     </td>
   </tr>
@@ -67,8 +86,8 @@ Link para o video sobre o projeto: [clique aqui]()
     <td>
       <ul>
         <li>Gestão do README e repositório</li>
-        <li>Importar Projeto para o Wokwi</li>
-        <li>Criar e montar o setup do projeto</li>
+        <li>Condicionais do código</li>
+        <li>Revisão e melhoria do código</li>
       </ul>
     </td>
   </tr>
