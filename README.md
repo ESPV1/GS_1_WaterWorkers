@@ -12,6 +12,8 @@ Diante desse cenário, propomos a implementação de um sistema composto por dua
 1. Módulo de alerta em tempo real, voltado à segurança de pedestres e motoristas que transitam por áreas com risco iminente de alagamento;
 2. Sistema de monitoramento inteligente, responsável por captar e transmitir informações sobre a localização e as condições operacionais dos bueiros diretamente às autoridades municipais, permitindo uma gestão mais eficaz da infraestrutura urbana e subsidiando a formulação de políticas públicas mais assertivas.
 
+Os principais resultados dessas medições indicarão se o bueiro está comprometido durante períodos de chuva e se o volume de água direcionado a ele está dentro da sua capacidade de escoamento. Esses dados serão enviados à prefeitura, que poderá tomar as medidas necessárias para aprimorar a infraestrutura local por meio de políticas públicas adequadas.
+
 
 ## 🛠️ Detalhes Técnicos
 Para medir o nível da água dentro de bueiros ou o fluxo de água em sarjetas, utilizaremos o sensor ultrassônico HC-SR04. Esse sensor funciona emitindo pulsos sonoros e medindo o tempo que esses pulsos levam para retornar após atingirem uma superfície. A partir disso, ele calcula a distância entre o sensor e o nível da água.
