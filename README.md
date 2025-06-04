@@ -16,7 +16,7 @@ Os principais resultados dessas medições indicarão se o bueiro está comprome
 
 
 ## 🛠️ Detalhes Técnicos
-Para medir o nível da água dentro de bueiros ou o fluxo de água em sarjetas, utilizaremos o sensor ultrassônico HC-SR04. Esse sensor funciona emitindo pulsos sonoros e medindo o tempo que esses pulsos levam para retornar após atingirem uma superfície. A partir disso, ele calcula a distância entre o sensor e o nível da água.
+Para medir o nível da água dentro de bueiros ou o fluxo de água em sarjetas, utilizaremos o sensor ultrassônico HC-SR04. Esse sensor funciona emitindo pulsos sonoros e medindo o tempo que esses pulsos levam para retornar após atingirem a superfície. A partir disso, ele calcula a distância entre o sensor e o nível da água.
 
 O funcionamento do sensor se dá por meio de dois pinos principais: TRIG e ECHO. Para iniciar uma medição, o pino TRIG deve ser ativado com um pulso de pelo menos 10 microssegundos. Em seguida, o pino ECHO permanecerá em nível alto pelo tempo correspondente à ida e volta do sinal ultrassônico. A duração desse pulso é diretamente proporcional à distância medida. O sensor é capaz de medir distâncias entre 2 cm e 400 cm com boa precisão.
 
@@ -26,7 +26,7 @@ Com essas medições, é possível determinar com exatidão se o nível da água
 ## 🖲️ Requisitos Funcionais
 1. Será feita uma leitura da distância entre o topo do poste e o chão, utilizando um sensor ultrassônico, para calcular o nível de água na rua. 
 2. Será feita uma leitura da base do poste até a profundidade do bueiro, também usando um sensor ultrassônico, para calcular o volume de água acumulada no bueiro. 
-3. As leituras são feitas a cada 1 segundo e, após 5 leituras, é calculada a média para definir o nível de água tanto no bueiro quanto na sarjeta 
+3. As leituras são feitas a cada segundo e, após 5 leituras, é calculada a média para definir o nível de água no bueiro e na sarjeta. 
 4. Caso o volume de água no bueiro esteja entre 0 e 30 cm, o LED verde deve acender, indicando situação normal. 
 5. Caso o volume de água na sarjeta esteja entre 0 e 2 cm, o monitor deve imprimir —> *"Fluxo de água: Inexistente"*
 6. Caso o volume de água no bueiro esteja entre 30 e 60 cm, o LED amarelo deve permanecer aceso, indicando um alerta. 
@@ -34,29 +34,29 @@ Com essas medições, é possível determinar com exatidão se o nível da água
 8. Caso o volume de água na sarjeta esteja entre 7 e 10 cm, o Serial deve imprimir —> *"Fluxo de água: Médio*"
 9. Caso o volume de água no bueiro ultrapasse 60 cm, o LED vermelho deve acender, indicando perigo. 
 10. Caso o volume de água na sarjeta ultrapasse 10 cm, o Serial deve imprimir: *"Fluxo de água: Elevado"*
-11. *Como função futura todos os status impressos no Serial deve ser enviado a prefeitura para monitoramento e controle desses dados*
+11. *Como função futura, todos os status impressos no Serial devem ser enviados à prefeitura para monitoramento e controle desses dados*
 
 ## 🧭 Material
 - 01 Arduino UNO = Para controlar o sistema
 - 01 Breadboard = Para montagem do circuito
 - Cabos Jumper = Para realizar as conexões na breadboard
 - 03 Resistores = 220 Ohms para os Leds
-- 01 LED Verde 🟢 = Indicar que o status do bueiro está dentro dos parametros
-- 01 LED Amarelo 🟡 = Indicar que o status do bueiro está fora dos parametros
-- 01 LED Vermelho 🔴 = Indicar que o bueiro esta a ponto de alagar
-- 02 Sensores HC-SR04 = Medir as distancias do poste ate o bueiro e do poste ate a sarjeta
+- 01 LED Verde 🟢 = Indicar que o status do bueiro está dentro dos parâmetros
+- 01 LED Amarelo 🟡 = Indicar que o status do bueiro está fora dos parâmetros
+- 01 LED Vermelho 🔴 = Indicar que o bueiro está a ponto de alagar
+- 02 Sensores HC-SR04 = Medir as distâncias do poste até o bueiro e do poste até a sarjeta
 
 
 ## 🔗Como acessar o projeto
 Para acessar o diagrama do projeto [clique aqui](https://wokwi.com/projects/432402831622526977)
 
-Link para o video sobre o projeto: [clique aqui]()
+Link para o vídeo sobre o projeto: [clique aqui]()
 
 ## 🧰 Tecnologias utilizadas
-- Linguagem de programção: C
+- Linguagem de programação: C
 - Microcontrolador: Arduino R3 UNO
 - Prototipagem: Wokwi
-- Repositorio Remoto: Github
+- Repositório Remoto: Github
 
 
 ## 🧑‍💻 Equipe
