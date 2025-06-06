@@ -50,7 +50,7 @@ Com essas medições, é possível determinar com exatidão se o nível da água
 ## 🔗Como acessar o projeto
 Para acessar o diagrama do projeto [clique aqui](https://wokwi.com/projects/432402831622526977)
 
-Link para o vídeo sobre o projeto: [clique aqui]()
+Link para o vídeo sobre o projeto: [clique aqui](https://youtu.be/8Qdd2uMBMQM)
 
 ## 🧰 Tecnologias utilizadas
 - Linguagem de programação: C
