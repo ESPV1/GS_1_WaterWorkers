@@ -1,0 +1,156 @@
+// Pinos Digitias Sensor Bueiro
+#define triggerBueiro 7
+#define echoBueiro 6
+
+//Pinos Digitais Sensor Poste
+#define triggerChao 12
+#define echoChao 11
+
+//Pindos Digitais do Led
+#define ledG 8
+#define ledY 9
+#define ledR 10
+
+//Variaveis para guardar a distancia captada pelo PulseIn
+unsigned int distanciaBueiro = 0;
+unsigned int distanciaChao = 0;
+
+//Variaveis para transformar a distancia captada pelo PulseIn em cm
+unsigned int distanciaBueiroCM = 0;
+unsigned int distanciaChaoCM = 0;
+
+//Variaveis para contadores ou repetições
+unsigned long tempoContagem = 0;
+unsigned int contadorLeituras = 0;
+
+//Variaveis para acumuladores
+unsigned int aguaBueiroAcumulada = 0;
+unsigned int aguaSarjetaAcumulada = 0;
+
+//Variaveis finais de resultados acumulados
+unsigned int distanciaTotalBueiro = 0;
+unsigned int distanciaTotalChao = 0;
+
+//Vamos supor que a o bueiro tem 1m (100cm) de profundidade e a entrada do bueiro de 20cm
+unsigned int profundidadeBueiro = 100;
+unsigned int alturaEntrada = 20;
+
+// Variaveis para simular o volume de agua a partir das alturas acima
+int alturaAguaBueiro = 0;
+int alturaAguaRua = 0;
+
+
+void setup() {
+  Serial.begin(9600); // Inicia o Serial
+
+  //Declaração dos pinos
+  pinMode(ledG,OUTPUT);
+  pinMode(ledY,OUTPUT);
+  pinMode(ledR,OUTPUT);
+
+  //entradas distancia - profunidade bueiro
+  pinMode(triggerBueiro, OUTPUT);
+  pinMode(echoBueiro,INPUT);
+
+  //entradas distancia entrada do bueiro
+  pinMode(triggerChao, OUTPUT);
+  pinMode(echoChao,INPUT);
+}
+
+
+void loop() {
+  //Irá fazer uma leitura por segundo
+  if(millis() - tempoContagem >=1000){
+    tempoContagem = millis();
+
+    // Sensor Bueiro
+    digitalWrite(triggerBueiro, HIGH); //Liga o sensor
+    delayMicroseconds(10); //espera 10 ms
+    digitalWrite(triggerBueiro, LOW); //Desliga o sensor
+    distanciaBueiro = pulseIn(echoBueiro, HIGH);// Calcula o pulso a partir do echo
+    distanciaBueiroCM = distanciaBueiro/58; // Transforma em cm
+
+    delay(50); // pequeno intervalo entre medições
+
+    // Sensor Chao
+    digitalWrite(triggerChao, HIGH); //Liga o sensor
+    delayMicroseconds(10); //espera 10 ms
+    digitalWrite(triggerChao, LOW); //Desliga o sensor
+    distanciaChao = pulseIn(echoChao, HIGH); // Calcula o pulso a partir do echo
+    distanciaChaoCM = distanciaChao/58; // Transforma em cm
+
+    //Acumuladores -> Adicionando valores a cada 1 segundo
+    aguaBueiroAcumulada = aguaBueiroAcumulada + distanciaBueiroCM;
+    aguaSarjetaAcumulada = aguaSarjetaAcumulada + distanciaChaoCM;
+
+    //Contador da leitura
+    contadorLeituras = contadorLeituras + 1;
+
+    //Quando completar 5 leituras
+    if(contadorLeituras == 5){
+      //Media das leituras
+      distanciaTotalBueiro = aguaBueiroAcumulada / 5;
+      distanciaTotalChao = aguaSarjetaAcumulada / 5;
+
+      //Calcula o volume de agua a partir das distancias e a media dos valores das leituras
+      alturaAguaBueiro = profundidadeBueiro - distanciaTotalBueiro;
+      alturaAguaRua = alturaEntrada - distanciaTotalChao;
+
+      //Reseta os acumuladores
+      aguaBueiroAcumulada = 0;
+      aguaSarjetaAcumulada = 0;
+      contadorLeituras = 0;
+
+      //Feedback no console
+      Serial.println("Valores obtidos pelas leituras: ");
+      Serial.print("Leitura sensor do bueiro: ");
+      Serial.print(distanciaTotalBueiro);
+      Serial.println(" cm");
+      Serial.print("Volume de água no bueiro: ");
+      Serial.print(alturaAguaBueiro);
+      Serial.println(" cm");
+      //Fluxo de agua
+      if(alturaAguaRua >=2 && alturaAguaRua <=6){
+        Serial.println("Fluxo de água: Baixo");
+      }
+      else if(alturaAguaRua >6 && alturaAguaRua <=10){
+        Serial.println("Fluxo de água: Medio");
+      }
+      else if(alturaAguaRua >10){
+        Serial.println("Fluxo de água: Elevado");
+      }
+      else{
+        Serial.println("Fluxo de água: Inexistente");
+      }
+      Serial.println("---------------------");
+    }
+  }
+  //Condicionais para acender led
+  if(alturaAguaBueiro >=0 && alturaAguaBueiro <=30){
+    status_ok();
+  }else if(alturaAguaBueiro >30 && alturaAguaBueiro <=60){
+    status_alerta();
+  }
+  else if(alturaAguaBueiro >60 ){
+    status_perigo();
+  }
+}
+
+//Em caso das leituras estarem dentro dos parametros
+void status_ok(){
+  digitalWrite(ledG,HIGH);
+  digitalWrite(ledY,LOW);
+  digitalWrite(ledR,LOW);
+}
+//Em caso das leituras estarem em alerta 
+void status_alerta(){
+  digitalWrite(ledG,LOW);
+  digitalWrite(ledY,HIGH);
+  digitalWrite(ledR,LOW);
+}
+//Em caso das leituras estarem fora dos parametros
+void status_perigo(){
+  digitalWrite(ledG,LOW);
+  digitalWrite(ledY,LOW);
+  digitalWrite(ledR,HIGH);
+}
