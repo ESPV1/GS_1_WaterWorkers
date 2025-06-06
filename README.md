@@ -24,8 +24,8 @@ Com essas medições, é possível determinar com exatidão se o nível da água
 
 
 ## 🖲️ Requisitos Funcionais
-1. Será feita uma leitura da distância entre o topo do poste e o chão, utilizando um sensor ultrassônico, para calcular o nível de água na rua. 
-2. Será feita uma leitura da base do poste até a profundidade do bueiro, também usando um sensor ultrassônico, para calcular o volume de água acumulada no bueiro. 
+1. Será feita uma leitura da distância entre o a entrada do bueiro ate o solo, utilizando um sensor ultrassônico, para calcular o fluxo de agua na sarjeta. 
+2. Será feita uma leitura da parte inferior da tampa do bueiro até a profundidade do bueiro, também usando um sensor ultrassônico, para calcular o volume de água acumulada no bueiro. 
 3. As leituras são feitas a cada segundo e, após 5 leituras, é calculada a média para definir o nível de água no bueiro e na sarjeta. 
 4. Caso o volume de água no bueiro esteja entre 0 e 30 cm, o LED verde deve acender, indicando situação normal. 
 5. Caso o volume de água na sarjeta esteja entre 0 e 2 cm, o monitor deve imprimir —> *"Fluxo de água: Inexistente"*
